@@ -19,7 +19,7 @@
         return $request->user();
     });
 
-    Route::get('/',[TaskController::class, 'index']);
+    Route::get('/tasks',[TaskController::class, 'index']);
     Route::prefix('/task')->group(function() {
         Route::post('/store', [TaskController::class, 'store']);
         Route::get('/{id}', [TaskController::class, 'show']);

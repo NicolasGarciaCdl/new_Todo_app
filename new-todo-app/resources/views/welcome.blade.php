@@ -31,7 +31,7 @@
             }
         </style>
 
-        @vite('ressources/css/app.css')
+        @vite('resources/css/app.css')
 
     </head>
     <body>
