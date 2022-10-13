@@ -2,22 +2,38 @@
 
     <li class="taskItem">
         <div>
-            <input type="checkbox" name="title" id="title" class="title_check">
-            <span class="todo_title">{{ task.title }}</span>
+            <input type="checkbox" name="title" id="title" class="title_check" @change="updateCheck()" v-model="task.completed">
+            <span class="todo_title" :class="[task.completed ? 'completed' : '', 'task']">{{ task.title }}</span>
         </div>
 
         <button class="btn-danger" ><font-awesome-icon icon="trash"/></button>
     </li>
-
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     name: "Task",
     props: {
         task:Object,
         assignment:Object
     },
+    methods:{
+        updateCheck(){
+            axios.put(`api/task/${this.task.id}`, {
+                task: this.task
+            })
+                .then(res => {
+                    if (res.status == 200) {
+                        this.$emit("taskchanged");
+                    }
+                })
+                .catch(error => {
+                    console.log("error from axios put", error);
+                });
+        },
+    }
 
 }
 </script>
