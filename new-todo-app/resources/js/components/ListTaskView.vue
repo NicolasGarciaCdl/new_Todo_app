@@ -2,29 +2,19 @@
     <div class="list_container">
         <h2>In Progress </h2>
         <ul class="todo_list">
-            <div v-for="assignment in assignments.filter(a => !a.completed)" :key="assignment.id">
-                <task
-                    :task="assignment"
-                ></task>
-
-            </div>
-            <div  v-for="task in tasks.filter(a => !a.completed)" :key="task.id">
+            <div  v-for="task in tasks.filter(a => !a.completed)" :key="task.id"  >
                 <task
                     :task="task"
                     class="taskItem"
+                    v-on:taskChanged="$emit('reloadList')"
                 />
             </div>
+
         </ul>
     </div>
-    <div class="completedTask" v-show="assignments.filter(a => a.completed).length || tasks.filter(a => a.completed).length">
+    <div class="completedTask" v-show="tasks.filter(a => a.completed).length">
         <h2>Completed </h2>
         <ul class="todo_list">
-            <div v-for="assignment in assignments.filter(a => a.completed)" :key="assignment.id">
-                <task
-                    :task="assignment"
-                ></task>
-
-            </div>
             <div  v-for="task in tasks.filter(a => a.completed)" :key="task.id">
                 <task
                     :task="task"
@@ -41,34 +31,32 @@ import axios from "axios";
 
 export default {
     name: "ListTaskView",
-    components:{
+    emits:['reloadList'],
+    components: {
         Task
     },
-    data(){
-        return{
-            assignments: [
-                {id:1001, title: 'task exemple 1', completed: false},
-                {id:1002, title: 'task exemple 2', completed: false},
-                {id:1003, title: 'task exemple 3', completed: false},
-            ],
-            tasks:[]
-        }
-    },
-    methods:{
-        getTasks(){
-            axios.get('api/tasks')
-                .then(res =>{
-                    this.tasks = res.data;
-                })
-                .catch(error =>{
-                    console.log(error);
-                });
-        }
-    },
+    props: ['tasks']
 
-    created() {
-        this.getTasks();
-    }
+    // data(){
+    //     return{
+    //         tasks:[]
+    //     }
+    // },
+    // methods:{
+    //     getTasks(){
+    //         axios.get('api/tasks')
+    //             .then(res =>{
+    //                 this.tasks = res.data;
+    //             })
+    //             .catch(error =>{
+    //                 console.log(error);
+    //             });
+    //     }
+    // },
+
+    // mounted() {
+    //     this.getTasks();
+    // }
 
 }
 </script>

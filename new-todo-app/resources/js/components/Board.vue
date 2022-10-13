@@ -2,22 +2,29 @@
 <div class="board_container">
     <h1 class="board_title">New Todo App</h1>
     <hr>
-    <list-task-view :tasks="tasks"></list-task-view>
+    <task-form :task="task" @reloadList="getTasks()"></task-form>
+    <list-task-view
+     :tasks="tasks"
+     v-on:reloadList="getTasks"
+    />
 </div>
 </template>
 
 <script>
 import ListTaskView from "./ListTaskView.vue";
 import axios from "axios";
+import TaskForm from "./TaskForm.vue";
 
 export default {
     name: "Board",
     components: {
+        TaskForm,
         ListTaskView
     },
     data(){
         return {
             tasks: [],
+            task:[]
 
         };
     },
@@ -34,7 +41,7 @@ export default {
     },
     created(){
         this.getTasks();
-    }
+    },
 };
 </script>
 
