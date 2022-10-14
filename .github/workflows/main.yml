@@ -1,0 +1,51 @@
+name: Publish Static Version on GitHub Pages
+on:
+  push:
+    branches: [ main ]
+    
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+      
+    strategy:
+      fail-fast: true
+      matrix:
+        php-versions: ['8.1']
+        
+    steps:
+      # Setup Github actions
+      # https://github.com/actions/checkout (official)
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      # https://github.com/shivammathur/setup-php (community)
+      - name: Setup PHP, extensions and composer with shivammathur/setup-php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, iconv, json, mbstring, pdo
+        env:
+          update: true
+          
+      - name : Composer Install
+        run: composer install
+      - name: npm/yarn/pnpm install
+        # You may pin to the exact commit or the version.
+        # uses: Jaid/action-npm-install@9483da054882538350947c4147de4c8adbf0d597
+        uses: Jaid/action-npm-install@v1.2.4
+        with:
+          # NODE_ENV setting for installing execution (affects the amount of dependencies installed, but I would recommend keeping development in any case).
+          nodeEnv: # optional, default is development
+          # Can be "npm", "yarn", "pnpm" or "auto". "auto" will determine the package manager by looking into the repo's files. This is very accurate, so you normally don't want to change this.
+          packageManager: # optional, default is auto
+          # If true and node_modules folder already exists, this action will be skipped assuming npm install is not required.
+          skipIfNodeModulesExists: # optional, default is false  
+
+      - name : Generate Static Dump
+        run: php bin/console dump-static-site
+        
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./output
