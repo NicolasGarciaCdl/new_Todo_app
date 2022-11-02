@@ -14,14 +14,18 @@
     <h2>Assignments in Progress </h2>
     <ul class="todo_list">
         <div v-for="assignment in assignments">
-            <task
-                    :task="assignment"
-            ></task>
-
+            <li class="taskItem">
+                <div>
+                    <input type="checkbox" name="title" id="title" class="title_check">
+                    <span class="todo_title">{{ assignment.title }}</span>
+                </div>
+                <button class="btn-danger" ><font-awesome-icon icon="trash"/></button>
+            </li>
         </div>
     </ul>
 </div>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://use.fontawesome.com/your-embed-code.js"></script>
 <script>
     data(){
         return{
