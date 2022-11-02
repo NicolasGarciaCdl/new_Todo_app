@@ -10,7 +10,26 @@
 </head>
 <body>
 <h1>New Todo App</h1>
+<div class="list_container">
+    <h2>Assignments in Progress </h2>
+    <ul class="todo_list">
+        <div v-for="assignment in assignments">
+            <task
+                    :task="assignment"
+            ></task>
 
+        </div>
+        <div  v-for="task in tasks">
+            <task
+                    :task="task"
+                    class="taskItem"
+            />
+        </div>
+    </ul>
+</div>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+
+</script>
 </body>
 </html>
