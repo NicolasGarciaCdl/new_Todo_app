@@ -35,3 +35,14 @@ li{
 	color: red;
 	margin: 10px;
 }
+.list_container{
+	background-color: aqua;
+}
+h2{
+	font-size: 32px;
+	font-weight: bold;
+}
+.todo_list{
+	padding: 10px;
+	
+}
