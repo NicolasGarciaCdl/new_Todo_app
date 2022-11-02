@@ -9,3 +9,29 @@ h1{
 	border-bottom: 2px solid #1a202c;
 	
 }
+
+.completed{
+	text-decoration: line-through;
+	color : #999999;
+}
+.task{
+	word-break: break-all;
+}
+.taskItem{
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.todo_title{
+	margin-left: 10px;
+}
+li{
+	border: 1px solid blueviolet;
+}
+.title_check{
+	margin: 20px;
+}
+.btn-danger{
+	color: red;
+	margin: 10px;
+}
