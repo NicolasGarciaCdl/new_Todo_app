@@ -12,10 +12,10 @@
 <body>
 <div id="app">
     <h1>New Todo App</h1>
-    <div class="list_container">
+    <div v-show="inProgressAssignments.length" class="list_container">
         <h2>Assignments in Progress </h2>
         <ul class="todo_list">
-            <div v-for="assignment in assignments.filter(a => ! a.completed)" :key="assignment.id">
+            <div v-for="assignment in inProgressAssignments" :key="assignment.id">
                 <li class="taskItem">
                     <div>
                         <input type="checkbox" name="title" id="title" class="title_check" v-model="assignment.completed">
@@ -26,7 +26,7 @@
             </div>
         </ul>
     </div>
-    <div v-show="assignments.filter(a => a.completed).length" class="list_container">
+    <div v-show="completedAssignments.length" class="list_container">
         <h2>Completed</h2>
         <ul class="todo_list">
             <div v-for="assignment in assignments.filter(a => a.completed)" :key="assignment.id">
@@ -53,10 +53,20 @@
                 ]
             }
         },
-        ring(){
-            console.log('click');
-            let audio = new Audio("correct-2-46134.mp3");
-            audio.play();
+        computed: {
+            inProgressAssignments(){
+                return this.assignments.filter(assignment => ! assignment.completed)
+            },
+            completedAssignments(){
+                return this.assignments.filter(assignment => assignment.completed)
+            }
+        },
+        methods:{
+            ring(){
+                console.log('click');
+                let audio = new Audio("correct-2-46134.mp3");
+                audio.play();
+            },
         }
     };
 
