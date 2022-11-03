@@ -12,6 +12,12 @@
 <body>
 <div id="app">
     <h1>New Todo App</h1>
+    <div class="form-group">
+        <form>
+            <input type="text" name="newTodo" id="NewTodo" placeholder="New Todo">
+            <button class="btn_add_form" type="submit">Add</button>
+        </form>
+    </div>
     <div v-show="inProgress.length" class="list_container">
         <h2>Assignments in Progress </h2>
         <ul class="todo_list">
