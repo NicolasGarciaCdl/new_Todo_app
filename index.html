@@ -18,7 +18,7 @@
             <div v-for="assignment in assignments">
                 <li class="taskItem">
                     <div>
-                        <input type="checkbox" name="title" id="title" class="title_check">
+                        <input type="checkbox" name="title" id="title" class="title_check" v-model="assignment.completed">
                         <span class="todo_title"> {{ assignment.title }}</span>
                     </div>
                     <button class="btn-danger" ><i class="fa-solid fa-trash fa-2x"></i></button>
@@ -29,7 +29,7 @@
 </div>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script>
-    Vue.createApp({
+    let app= {
         data(){
             return{
                 assignments: [
@@ -39,7 +39,9 @@
                 ]
             }
         }
-    }).mount('#app');
+    };
+
+    Vue.createApp(app).mount('#app');
 </script>
 
 
