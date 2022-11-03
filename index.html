@@ -12,12 +12,23 @@
 <body>
 <div id="app">
     <h1>New Todo App</h1>
-    <div class="form-group">
-        <form>
-            <input type="text" name="newTodo" id="newTodo" placeholder="New Todo">
-            <button class="btn_add_form" type="submit">Add</button>
-        </form>
-    </div>
+    <form @submit.prevent="addTask">
+        <div class="inputTask">
+            <div>
+                <input type="text" id="newTask" v-model="task.title" placeholder="Add a task" @keyup.enter="addTask()">
+            </div>
+            <div>
+                <button type="submit" class="btn_add_task">
+                    <font-awesome-icon
+                            icon="plus-square"
+                            :class="[ task.title ? 'active' : 'inactive', 'plus']"
+                            @click="addTask()"
+                    />
+                    New Task
+                </button>
+            </div>
+        </div>
+    </form>
     <div v-show="inProgress.length" class="list_container">
         <h2>Assignments in Progress </h2>
         <ul class="todo_list">
