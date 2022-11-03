@@ -15,7 +15,7 @@
     <form @submit.prevent="addTask">
         <div class="inputTask">
             <div>
-                <input type="text" id="newTask" v-model="task.title" placeholder="Add a task" @keyup.enter="addTask()">
+                <input type="text" id="newTask" v-model="newTask" placeholder="Add a task" @keyup.enter="addTask()">
             </div>
             <div>
                 <button type="submit" class="btn_add_task">
@@ -67,7 +67,8 @@
                     {id:1, title: 'task exemple 1', complete: false},
                     {id:2, title: 'task exemple 2', complete: false},
                     {id:3, title: 'task exemple 3', complete: false},
-                ]
+                ],
+                task: []
             }
         },
         computed: {
@@ -84,6 +85,14 @@
                 let audio = new Audio("correct-2-46134.mp3");
                 audio.play();
             },
+            addTask(){
+                this.assignments.push({
+                    name: this.newTask,
+                    complete: false,
+                    id: this.assignments.length + 1
+                });
+                this.newTask = '';
+            }
         }
     };
 
