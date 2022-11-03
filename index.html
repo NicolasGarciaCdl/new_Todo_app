@@ -26,8 +26,8 @@
             </div>
         </ul>
     </div>
-    <div class="list_container">
-        <h2>Assignments Completed</h2>
+    <div v-show="assignments.filter(a => a.completed).length" class="list_container">
+        <h2>Completed</h2>
         <ul class="todo_list">
             <div v-for="assignment in assignments.filter(a => a.completed)" :key="assignment.id">
                 <li class="taskItem">
