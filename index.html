@@ -12,13 +12,13 @@
 <body>
 <div id="app">
     <h1>New Todo App</h1>
-    <div v-show="inProgressAssignments.length" class="list_container">
+    <div v-show="inProgress.length" class="list_container">
         <h2>Assignments in Progress </h2>
         <ul class="todo_list">
-            <div v-for="assignment in inProgressAssignments" :key="assignment.id">
+            <div v-for="assignment in inProgress" :key="assignment.id">
                 <li class="taskItem">
                     <div>
-                        <input @click="ring()" type="checkbox" name="title" id="title" class="title_check" v-model="assignment.completed">
+                        <input @click="ring()" type="checkbox" name="title" id="title" class="title_check" v-model="assignment.complete">
                         <span class="todo_title"> {{ assignment.title }}</span>
                     </div>
                     <button class="btn-danger" ><i class="fa-solid fa-trash fa-2x"></i></button>
@@ -26,13 +26,13 @@
             </div>
         </ul>
     </div>
-    <div v-show="completedAssignments.length" class="list_container">
+    <div v-show="completed.length" class="list_container">
         <h2>Completed</h2>
         <ul class="todo_list">
-            <div v-for="assignment in assignments.filter(a => a.completed)" :key="assignment.id">
+            <div v-for="assignment in completed" :key="assignment.id">
                 <li class="taskItem">
                     <div>
-                        <input type="checkbox" name="title" id="title" class="title_check" v-model="assignment.completed">
+                        <input type="checkbox" name="title" id="title" class="title_check" v-model="assignment.complete">
                         <span class="todo_title"> {{ assignment.title }}</span>
                     </div>
                     <button class="btn-danger" ><i class="fa-solid fa-trash fa-2x"></i></button>
@@ -47,18 +47,18 @@
         data(){
             return{
                 assignments: [
-                    {id:1, title: 'task exemple 1', completed: false},
-                    {id:2, title: 'task exemple 2', completed: false},
-                    {id:3, title: 'task exemple 3', completed: false},
+                    {id:1, title: 'task exemple 1', complete: false},
+                    {id:2, title: 'task exemple 2', complete: false},
+                    {id:3, title: 'task exemple 3', complete: false},
                 ]
             }
         },
         computed: {
-            inProgressAssignments(){
-                return this.assignments.filter(assignment => ! assignment.completed)
+            inProgress(){
+                return this.assignments.filter(assignment => ! assignment.complete)
             },
-            completedAssignments(){
-                return this.assignments.filter(assignment => assignment.completed)
+            completed(){
+                return this.assignments.filter(assignment => assignment.complete)
             }
         },
         methods:{
