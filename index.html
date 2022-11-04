@@ -15,15 +15,14 @@
     <form @submit.prevent="addTask">
         <div class="inputTask">
             <div>
-                <input type="text" id="newTask" v-model="newTask" placeholder="Add a task" @keyup.enter="addTask()">
+                <input type="text" id="newAssignment" v-model="newAssignment" placeholder="Add a task" @keyup.enter="addTask()">
             </div>
             <div>
                 <button type="submit" class="btn_add_task">
-                    <font-awesome-icon
-                            icon="plus-square"
-                            :class="[ task.title ? 'active' : 'inactive', 'plus']"
+                    <i class="fa fa-plus-square"
+                            :class="[ newAssignment ? 'active' : 'inactive', 'plus']"
                             @click="addTask()"
-                    />
+                    ></i>
                     New Task
                 </button>
             </div>
@@ -52,7 +51,7 @@
                         <input type="checkbox" name="title" id="title" class="title_check" v-model="assignment.complete">
                         <span class="todo_title"> {{ assignment.title }}</span>
                     </div>
-                    <button class="btn-danger" ><i class="fa-solid fa-trash fa-2x"></i></button>
+                    <button class="btn-danger" @click="removeTask()"><i class="fa-solid fa-trash fa-2x"></i></button>
                 </li>
             </div>
         </ul>
@@ -68,7 +67,7 @@
                     {id:2, title: 'task exemple 2', complete: false},
                     {id:3, title: 'task exemple 3', complete: false},
                 ],
-                task: []
+                newAssignment: ''
             }
         },
         computed: {
@@ -87,11 +86,14 @@
             },
             addTask(){
                 this.assignments.push({
-                    name: this.newTask,
+                    title: this.newAssignment,
                     complete: false,
                     id: this.assignments.length + 1
                 });
-                this.newTask = '';
+                this.newAssignment = '';
+            },
+            removeTask(){
+                this.assignment.remove();
             }
         }
     };
