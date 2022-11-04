@@ -37,7 +37,7 @@
                         <input @click="ring()" type="checkbox" name="title" id="title" class="title_check" v-model="assignment.complete">
                         <span class="todo_title"> {{ assignment.title }}</span>
                     </div>
-                    <button class="btn-danger" ><i class="fa-solid fa-trash fa-2x"></i></button>
+                    <button class="btn-danger" @click="removeTask(+key)" ><i class="fa-solid fa-trash fa-2x"></i></button>
                 </li>
             </div>
         </ul>
@@ -51,7 +51,7 @@
                         <input type="checkbox" name="title" id="title" class="title_check" v-model="assignment.complete">
                         <span class="todo_title"> {{ assignment.title }}</span>
                     </div>
-                    <button class="btn-danger" @click="removeTask()"><i class="fa-solid fa-trash fa-2x"></i></button>
+                    <button class="btn-danger" @click="removeTask(+key)"><i class="fa-solid fa-trash fa-2x"></i></button>
                 </li>
             </div>
         </ul>
@@ -63,9 +63,9 @@
         data(){
             return{
                 assignments: [
-                    {id:1, title: 'task exemple 1', complete: false},
-                    {id:2, title: 'task exemple 2', complete: false},
-                    {id:3, title: 'task exemple 3', complete: false},
+                    {id: 1, title: 'task exemple 1', complete: false},
+                    {id: 2, title: 'task exemple 2', complete: false},
+                    {id: 3, title: 'task exemple 3', complete: false},
                 ],
                 newAssignment: ''
             }
@@ -85,15 +85,20 @@
                 audio.play();
             },
             addTask(){
-                this.assignments.push({
-                    title: this.newAssignment,
-                    complete: false,
-                    id: this.assignments.length + 1
-                });
-                this.newAssignment = '';
+                if(this.newAssignment.length != 0) {
+                    this.assignments.push({
+                        title: this.newAssignment,
+                        complete: false,
+                        id: this.assignments.length + 1
+                    });
+                    this.newAssignment = '';
+                }
             },
-            removeTask(){
-                this.assignment.remove();
+            removeTask(index){
+                console.log(index);
+                console.log(this.assignments);
+               this.assignments.splice(index, 1)
+
             }
         }
     };
